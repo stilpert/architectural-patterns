@@ -1,5 +1,5 @@
 import unittest
-from blackboard import Truck, Controller, Blackboard
+from blackboard import Horse, Controller, Blackboard
 
 
 def test_handler(v):
@@ -16,35 +16,35 @@ class TestBlackboard(unittest.TestCase):
 
     def test_add_cat(self):
         bb = Blackboard()
-        self.assertEqual(len(bb.cars), 0)
-        bb.add_car(Truck(bb))
-        self.assertEqual(len(bb.cars), 1)
+        self.assertEqual(len(bb.animals), 0)
+        bb.add_animal(Horse(bb))
+        self.assertEqual(len(bb.animals), 1)
 
-    def test_add_car_data(self):
+    def test_add_animal_data(self):
         bb = Blackboard()
-        self.assertEqual(len(bb.car_data), 0)
+        self.assertEqual(len(bb.animal_data), 0)
         bb.add_data({})
-        self.assertEqual(len(bb.car_data), 1)
+        self.assertEqual(len(bb.animal_data), 1)
 
-    def test_invokes_cars(self):
+    def test_invokes_animals(self):
         bb = Blackboard()
-        bb.add_car(Truck(bb))
+        bb.add_animal(Horse(bb))
 
-        self.assertEqual(len(bb.car_data), 0)
-        bb.cars[0].share_data()
-        self.assertEqual(len(bb.car_data), 1)
+        self.assertEqual(len(bb.animal_data), 0)
+        bb.animals[0].share_data()
+        self.assertEqual(len(bb.animal_data), 1)
 
 
-class TestCar(unittest.TestCase):
+class Testanimal(unittest.TestCase):
 
-    def test_get_speed(self):
+    def test_get_weight(self):
 
-        car = Truck(None)
-        self.assertNotEqual(car.get_speed(), car.get_speed())
+        animal = Horse(None)
+        self.assertNotEqual(animal.get_weight(), animal.get_weight())
 
     def test_is_photo(self):
-        car = Truck(None)
-        chunk = [car.is_photographed() for _ in range(0, 20)]
+        animal = Horse(None)
+        chunk = [animal.is_photographed() for _ in range(0, 20)]
         self.assertNotEqual(all(chunk), True)
 
 

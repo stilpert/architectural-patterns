@@ -1,21 +1,21 @@
 import unittest
-from event_bus import EventBus, EventListener, EventSource
+from event_bus import EventBus, Listener, Source
 
 
 def test_handler(v):
     return v
 
 
-class TestEventListener(unittest.TestCase):
+class TestListener(unittest.TestCase):
 
     def test_adds_actions(self):
-        listener = EventListener('test')
+        listener = Listener('test')
         self.assertEqual(len(listener.actions), 0)
         listener.add_action(test_handler)
         self.assertEqual(len(listener.actions), 1)
 
     def test_remove_actions(self):
-        listener = EventListener('test')
+        listener = Listener('test')
         self.assertEqual(len(listener.actions), 0)
         listener.add_action(test_handler)
         self.assertEqual(len(listener.actions), 1)
@@ -27,7 +27,7 @@ class TestEventBus(unittest.TestCase):
 
     def test_adds_actions(self):
         bus = EventBus()
-        listener = EventListener('test')
+        listener = Listener('test')
 
         self.assertEqual(len(bus.listeners), 0)
         listener.connect(bus)

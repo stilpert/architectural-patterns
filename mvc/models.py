@@ -1,11 +1,11 @@
-class Animal:
-    def __init__(self, name) -> None:
-        self.name = name
+class Notification:
+    def __init__(self, text) -> None:
+        self.text = text
 
 
-class AnimalModel:
+class NotificationModel:
     def __init__(self) -> None:
-        self.animals = []
+        self.notifications = []
 
-    def add_animal(self, name):
-        self.animals.append(Animal(name))
+    def add_notification(self, text):
+        self.notifications.append(Notification(text))

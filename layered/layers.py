@@ -1,36 +1,36 @@
-class Animal:
-    sound = None
+class Person:
+    age = None
     name = None
 
-    def __init__(self, name, sound=None):
+    def __init__(self, name, age=None):
         self.name = name
-        self.sound = sound
+        self.age = age
 
 
 class DataLayer:
     # responsible for retrieving data from the db
 
-    animals = []
+    persons = []
 
     def __init__(self):
         # mocks db connection
         self.connect_db()
 
     def connect_db(self):
-        self.animals = [
-            Animal("Dog", "Woof"),
-            Animal("Cat", "Meow"),
-            Animal("Lion", "Roar"),
-            Animal("Tiger", "Roar"),
+        self.persons = [
+            Person("Kate", 20),
+            Person("Daizy", 17),
+            Person("Jack", 15),
+            Person("Tom", 30),
         ]
 
-    def get_animal_sound(self, animal_name):
-        # returns sound of enemy or null
-        return next((animal.sound for animal in self.animals if animal.name == animal_name), None)
+    def get_person_age(self, person_name):
+        # returns age of enemy or null
+        return next((person.age for person in self.persons if person.name == person_name), None)
 
-    def get_animals_names(self):
+    def get_persons_names(self):
         # get all names list
-        return [animal.name for animal in self.animals]
+        return [person.name for person in self.persons]
 
 
 
@@ -48,21 +48,21 @@ class ApplicationLayer:
         if(self.is_init):
             return False
         
-        self.names_cache = self.db.get_animals_names()
+        self.names_cache = self.db.get_persons_names()
         self.is_init = True
     
     def cache_init_protection(self):
         if(not self.is_init):
             self.load_cache()
 
-    def get_animal_sound(self, animal_name):
+    def get_person_age(self, person_name):
         self.cache_init_protection()
         try:
-            if animal_name not in self.names_cache: 
+            if person_name not in self.names_cache: 
                 return None
             
-            print('self.db.get_animal_sound(animal_name)', self.db.get_animal_sound(animal_name))
-            return self.db.get_animal_sound(animal_name)
+            print('self.db.get_person_age(person_name)', self.db.get_person_age(person_name))
+            return self.db.get_person_age(person_name)
         except:
             return None
 
@@ -71,10 +71,19 @@ class PresentationLayer:
     def __init__(self, application: ApplicationLayer) -> None:
         self.application = application
 
-    def get_animal_sound(self):
-        animal_name = input("Animal name:")
-        search_res = self.application.get_animal_sound(animal_name)
+    def get_person_age(self):
+        person_name = input("person name:")
+        search_res = self.application.get_person_age(person_name)
         if search_res is None:
-            print(f'No [{animal_name}] sound in db')
+            print(f'No [{person_name}] age in db')
         else:
-            print(f'[{animal_name}] says [{search_res}]')
+            print(f'[{person_name}] says [{search_res}]')
+
+
+if __name__ == '__main__':
+    db = DataLayer()
+    logic = ApplicationLayer(db)
+    app = PresentationLayer(logic)
+
+    while True:
+        app.get_person_age()

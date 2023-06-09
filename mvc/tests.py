@@ -1,5 +1,5 @@
 import unittest
-from models import AnimalModel
+from models import NotificationModel
 from controller import Controller
 
 
@@ -9,20 +9,20 @@ def test_handler(v):
 
 class TestModel(unittest.TestCase):
 
-    def test_adds_animal(self):
-        model = AnimalModel()
-        self.assertEqual(len(model.animals), 0)
-        model.add_animal('name 1')
-        self.assertEqual(len(model.animals), 1)
+    def test_adds_notification(self):
+        model = NotificationModel()
+        self.assertEqual(len(model.notifications), 0)
+        model.add_notification('text 1')
+        self.assertEqual(len(model.notifications), 1)
 
 
 class TestController(unittest.TestCase):
 
-    def test_adds_animal(self):
-        controller = Controller(AnimalModel())
-        self.assertEqual(len(controller.get_animals_names()), 0)
-        controller.add_animal('name 1')
-        self.assertEqual(len(controller.get_animals_names()), 1)
+    def test_adds_notification(self):
+        controller = Controller(NotificationModel())
+        self.assertEqual(len(controller.get_notifications_texts()), 0)
+        controller.add_notification('text 1')
+        self.assertEqual(len(controller.get_notifications_texts()), 1)
 
 
 if __name__ == "__main__":

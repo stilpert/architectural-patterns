@@ -1,19 +1,19 @@
 from flask import Flask, request
 app = Flask(__name__)
 
-curr_animal_sound = 'meow'
+message = 'my message'
 
 
-@app.route('/get_sound', methods=['GET'])
-def get_sound():
-    return curr_animal_sound
+@app.route('/get_message', methods=['GET'])
+def get_message():
+    return message
 
 
-@app.route('/set_sound', methods=['POST'])
-def set_sound():
-    global curr_animal_sound
+@app.route('/set_message', methods=['POST'])
+def set_message():
+    global message
     new_sound = request.json['sound']
-    curr_animal_sound = new_sound
+    message = new_sound
     return {'ok': 'ok'}
 
 
